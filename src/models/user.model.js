@@ -74,9 +74,11 @@ userSchema.methods.generateAccessAndRefreshTokens = function () {
     SECRET_TOKEN,
     { expiresIn: '1d' }
   );
-  const refreshToken = jwt.sign({ _id: this._id }, SECRET_TOKEN, {
-    expiresIn: '7d',
-  });
+  const refreshToken = jwt.sign(
+    { _id: this._id, role: this.role },
+    SECRET_TOKEN,
+    { expiresIn: '7d' }
+  );
   return { accessToken, refreshToken };
 };
 
